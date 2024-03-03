@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+  <title>Title</title>
+</head>
+
+<body>
+  <div th:fragment="deleteModal (person)">
+    <div class="modal fade" th:id="${'deleteUserModal' + person.id}" tabindex="-1" aria-labelledby="deleteModelLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content text-center">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="deleteModalLabel">Delete person</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form th:action="@{/admin/person/{id}/delete(id=${person.id})}" th:method="DELETE" class="form">
+              <div class="mb-1">
+                <label th:for="${'deletedIDInput' + person.id}" class="form-label"><b>ID</b></label>
+                <input type="text" class="form-control" th:id="${'deletedIDInput' + person.id}" disabled readonly
+                  th:placeholder="${person.id}">
+              </div>
+
+              <div class="mb-1">
+                <label th:for="${'deletedFirstNameInput' + person.id}" class="form-label"><b>First name</b></label>
+                <input type="text" class="form-control" th:id="${'deletedFirstNameInput' + person.id}" disabled readonly
+                  th:placeholder="${person.firstName}">
+              </div>
+
+              <div class="mb-1">
+                <label th:for="${'deletedLastNameInput' + person.id}" class="form-label">
+                  <b>Last name</b>
+                </label>
+                <input type="text" class="form-control" th:id="${'deletedLastNameInput' + person.id}" disabled readonly
+                  th:placeholder="${person.lastName}">
+              </div>
+
+              <div class="mb-1">
+                <label th:for="${'deletedDateOfBirthday' + person.id}" class="form-label">
+                  <b>Date Of Birthday</b>
+                </label>
+                <input th:name="dateOfBirthday" type="date" class="form-control" id="newDateOfBirthInput"
+                       th:value="${person.dateOfBirthday}">
+              </div>
+
+              <div class="mb-1">
+                <label th:for="${'deletedEmailInput' + person.id}" class="form-label">
+                  <b>Email</b>
+                </label>
+                <input type="email" class="form-control" th:id="${'deletedEmailInput' + person.id}"
+                  aria-describedby="emailHelp" disabled readonly th:placeholder="${person.email}">
+              </div>
+
+              <div class="mb-2">
+                <label th:for="${'deletedRoleSelect' + person.id}" class="form-label">
+                  <b>Role</b>
+                </label>
+                <select class="form-select" size="3" th:id="${'deletedRoleSelect' + person.id}" disabled>
+                  <div th:each="role : ${person.roles}">
+                    <option th:value="${role}" th:text="${role.name}"></option>
+                  </div>
+                </select>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

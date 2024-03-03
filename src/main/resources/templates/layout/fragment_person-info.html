@@ -1,0 +1,18 @@
+<div th:fragment="personInfo (currentPerson)">
+  <h1 class="h1">Person information-page</h1>
+  <div class="table_container mt-3 border ">
+    <!-- Поисковая форма с выпадающим списком -->
+<!--    <select id="userSelect">-->
+<!--      <option value="">Выберите пользователя</option>-->
+<!--      <option th:each="person : ${persons}" th:value="${person.id}" th:text="${person.firstName + ' ' + person.lastName}"></option>-->
+<!--    </select>-->
+<!--    <button onclick="loadUserData()">Таблица часов и отдыха</button>-->
+<!--    <div id="userWorkHoursTable">-->
+<!--      &lt;!&ndash; Таблица будет сгенерирована здесь &ndash;&gt;-->
+<!--    </div>-->
+
+    <div th:replace="work-hours-selection :: workHoursSelection(${currentPerson})"></div>
+
+  </div>
+</div>
+

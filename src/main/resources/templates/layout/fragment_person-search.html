@@ -1,0 +1,7 @@
+<!-- Поисковая форма с выпадающим списком -->
+<div class="dropdown" id="userSearchDropdown">
+  <input type="text" class="form-control dropdown-toggle" data-bs-toggle="dropdown" id="userSearchInput" placeholder="Search users" aria-expanded="false" onkeyup="filterUsers(this.value)" />
+  <div class="dropdown-menu" aria-labelledby="userSearchInput">
+    <a th:each="person : ${persons}" class="dropdown-item" th:data-person-id="${person.id}" th:text="${person.firstName + ' ' + person.lastName}" onclick="getUserWorkHours(this.getAttribute('data-person-id'))"></a>
+  </div>
+</div>

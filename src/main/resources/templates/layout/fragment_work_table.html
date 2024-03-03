@@ -1,0 +1,18 @@
+<div th:fragment="workHoursTable (person)">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Дата</th>
+            <th>Рабочие часы</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="workDay : ${person.workDays}">
+            <td th:text="${workDay.convertDateToString()}"></td>
+            <td>
+                <div th:replace="fragments/workHoursSelector :: workHoursSelector(${workDay})"></div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

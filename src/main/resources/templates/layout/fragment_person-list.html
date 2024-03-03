@@ -1,0 +1,47 @@
+<body>
+<div th:fragment="personsList (persons, roles)">
+  <div class="title_container p-3 bg-body-secondary">
+    <h5 class="h5 m-0">All persons</h5>
+  </div>
+  <div class="table_container p-4">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">EN</th>
+        <th scope="col">First name</th>
+        <th scope="col">Last name</th>
+        <th scope="col">Age</th>
+        <th scope="col">Email</th>
+        <th scope="col">Role</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+      </thead>
+      <tbody>
+      <div th:each="person : ${persons}">
+        <tr>
+          <th scope="row" th:text="${person.employerNumber}"></th>
+          <td th:text="${person.firstName}"></td>
+          <td th:text="${person.lastName}"></td>
+          <td th:text="${person.getAge()}"></td>
+          <td th:text="${person.email}"></td>
+          <td th:text="${#strings.listJoin(person.roles, ', ')}"></td>
+          <td>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    th:data-bs-target="${'#editUserModal' + person.id}">Edit</button>
+
+          </td>
+          <td>
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                    th:data-bs-target="${'#deleteUserModal' + person.id}">Delete</button>
+          </td>
+        </tr>
+        <!-- Modal Edit -->
+        <div th:replace="layout/modals/modal_edit.html :: editModal (${person}, ${roles})"></div>
+        <!--   Modal Delete -->
+        <div th:replace="layout/modals/modal_delete.html :: deleteModal (${person})"></div>
+      </div>
+      </tbody>
+    </table>
+  </div>
+</div>

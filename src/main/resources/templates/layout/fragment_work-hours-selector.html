@@ -1,0 +1,47 @@
+<div th:fragment="workHoursSelection (person)">
+    <h2>Выберите рабочие часы</h2>
+    <div id="hours-selection" class="d-flex flex-wrap">
+        <th:block th:each="hour : ${#numbers.sequence(0, 23)}">
+            <button type="button" class="btn btn-outline-primary m-1 hour-btn" th:data-hour="${hour}">${hour}:00</button>
+        </th:block>
+    </div>
+    <button id="save-hours-btn" class="btn btn-success mt-3" th:data-person-id="${person.id}">Сохранить</button>
+</div>
+
+<script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        const selectedHours = new Set();
+
+        document.querySelectorAll('.hour-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const hour = this.getAttribute('data-hour');
+                if (selectedHours.has(hour)) {
+                    selectedHours.delete(hour);
+                    this.classList.remove('btn-primary');
+                    this.classList.add('btn-outline-primary');
+                } else {
+                    selectedHours.add(hour);
+                    this.classList.add('btn-primary');
+                    this.classList.remove('btn-outline-primary');
+                }
+            });
+        });
+
+        document.getElementById('save-hours-btn').addEventListener('click', function () {
+            const personId = this.getAttribute('data-person-id');
+            const data = { personId: personId, selectedHours: Array.from(selectedHours) };
+            saveWorkDay(data);
+        });
+
+        function saveWorkDay(data) {
+            fetch('/api/workdays', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(data => console.log('Успех:', data))
+                .catch((error) => console.error('Ошибка:', error));
+        }
+    });
+</script>

@@ -1,0 +1,36 @@
+.hours-selector {
+    display: grid;
+    grid-auto-flow: column; /* Устанавливаем элементы в одну строку */
+    grid-auto-columns: minmax(min-content, max-content); /* Устанавливаем минимальную и максимальную ширину столбцов */
+    overflow-x: auto; /* Добавляем горизонтальный скролл, если контент не влезает */
+    gap: 2px; /* Расстояние между элементами */
+}
+
+.btn-hour, .btn-hour-selected {
+    min-width: 40px; /* Установите минимальную ширину, чтобы убедиться, что текст на кнопках остается читаемым */
+    width: auto; /* Ширина кнопки будет адаптироваться к содержимому */
+    padding: 5px 10px;
+    margin-right: 2px; /* Маленький отступ справа для разделения кнопок */
+    border: 1px solid #ddd;
+    cursor: pointer;
+    background-color: #ffffff;
+    /* Другие стили для кнопок */
+}
+
+/* Убираем цвет фона для .btn-hour-selected, так как цвет будет добавляться динамически */
+.btn-hour-selected {
+    color: white;
+}
+
+/* Динамически добавляемые классы для выбранных кнопок */
+.hours-under {
+    background-color: #6c757d; /* Темно-серый цвет для недостаточного количества часов */
+}
+
+.hours-norm {
+    background-color: #28a745; /* Зеленый цвет для нормы */
+}
+
+.hours-over {
+    background-color: #dc3545; /* Красный цвет для переработки */
+}
