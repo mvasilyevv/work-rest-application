@@ -1,0 +1,53 @@
+<div th:fragment="crewMembers (persons)">
+  <h2>Crew Members</h2>
+  <div class="mb-3">
+    <div class="row">
+      <div class="col-md-6">
+        <input type="text" class="form-control" placeholder="Search by name or surname" id="searchInput">
+      </div>
+      <div class="col-md-6 text-end">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCrewMemberModal">Add Crew Member</button>
+      </div>
+    </div>
+  </div>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Employer Number</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="person : ${persons}">
+      <td th:text="${person.employerNumber}"></td>
+      <td th:text="${person.firstName}"></td>
+      <td th:text="${person.lastName}"></td>
+      <td th:text="${person.email}"></td>
+      <td th:text="${#strings.listJoin(person.roles, ', ')}"></td>
+      <td th:text="${person.status.statusType.name()}"></td>
+      <td>
+        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" th:data-bs-target="'#editCrewMemberModal' + ${person.id}">Edit</button>
+        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" th:data-bs-target="'#deleteCrewMemberModal' + ${person.id}">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <nav>
+    <ul class="pagination justify-content-center">
+      <li class="page-item disabled">
+        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item">
+        <a class="page-link" href="#">Next</a>
+      </li>
+    </ul>
+  </nav>
+</div>

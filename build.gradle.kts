@@ -6,6 +6,7 @@ plugins {
 	kotlin("jvm") version "1.9.22"
 	kotlin("plugin.spring") version "1.9.22"
 	kotlin("plugin.jpa") version "1.9.22"
+	kotlin("kapt") version "1.9.22"
 }
 
 group = "com.markvasilyevv"
@@ -31,16 +32,18 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	implementation("org.webjars:bootstrap:5.3.0")
+	implementation("org.webjars:popper.js:2.11.7")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	implementation ("org.mapstruct:mapstruct:1.5.5.Final")
+	implementation("org.mapstruct:mapstruct:1.5.3.Final")
+	implementation("io.github.microutils:kotlin-logging-jvm:2.0.11")
 	compileOnly("org.projectlombok:lombok")
-	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
-	runtimeOnly("org.postgresql:postgresql")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
-	annotationProcessor ("org.mapstruct:mapstruct-processor:1.5.5.Final")
-
+	runtimeOnly("org.slf4j:slf4j-simple:1.7.36")
+	runtimeOnly("org.postgresql:postgresql")
+	kapt("org.mapstruct:mapstruct-processor:1.5.3.Final")
 }
 
 tasks.withType<KotlinCompile> {

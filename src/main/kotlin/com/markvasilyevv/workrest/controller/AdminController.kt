@@ -2,9 +2,11 @@ package com.markvasilyevv.workrest.controller
 
 import com.markvasilyevv.workrest.dto.PersonDTO
 import com.markvasilyevv.workrest.mapper.PersonMapper
+import com.markvasilyevv.workrest.model.StatusType
 import com.markvasilyevv.workrest.security.PersonDetails
 import com.markvasilyevv.workrest.service.person.PersonService
 import com.markvasilyevv.workrest.service.role.RoleService
+import mu.KotlinLogging
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -19,18 +21,16 @@ class AdminController(
     private val personMapper: PersonMapper
 ){
 
+    private val logger = KotlinLogging.logger {}
+
     @GetMapping
     fun index(model: Model): String {
+        logger.info { "Accessing /admin endpoint" }
         val authentication = SecurityContextHolder.getContext().authentication
         val personDetails = authentication.principal as PersonDetails
-//        model.addAttribute("currentPerson", personMapper.toDto(personDetails.getPerson()))
-//        model.addAttribute("persons", personService
-//            .findAllPersonsByStatusType(ON_BOARD).map(
-//                personMapper::toDto
-//            ))
-        model.addAttribute("roles", roleService.findAll())
-        model.addAttribute("emptyPerson", PersonDTO())
-        return "admin/index"
+        logger.info { "Authenticated user: ${personDetails.username}" }
+        model.addAttribute("currentPerson", personMapper.toDto(personDetails.getPerson()))
+        return "bootstrap/admin/index"
     }
 
     @PatchMapping("/person/{id}/edit")

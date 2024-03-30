@@ -1,0 +1,43 @@
+<div th:fragment="addCrewMemberModal (emptyPerson)">
+  <div class="modal fade" id="addCrewMemberModal" tabindex="-1" aria-labelledby="addCrewMemberModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addCrewMemberModalLabel">Add Crew Member</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form th:action="@{/admin/person/new}" th:object="${emptyPerson}" method="post">
+            <div class="mb-3">
+              <label for="firstName" class="form-label">First Name</label>
+              <input type="text" class="form-control" id="firstName" th:field="*{firstName}" required>
+            </div>
+            <div class="mb-3">
+              <label for="lastName" class="form-label">Last Name</label>
+              <input type="text" class="form-control" id="lastName" th:field="*{lastName}" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" th:field="*{email}" required>
+            </div>
+            <div class="mb-3">
+              <label for="role" class="form-label">Role</label>
+              <select class="form-select" id="role" th:field="*{roles}" multiple required>
+                <option th:each="role : ${T(com.markvasilyevv.workrest.model.RoleType).values()}"
+                        th:value="${role}" th:text="${role.name()}"></option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="status" class="form-label">Status</label>
+              <select class="form-select" id="status" th:field="*{status.statusType}" required>
+                <option th:each="status : ${T(com.markvasilyevv.workrest.model.StatusType).values()}"
+                        th:value="${status}" th:text="${status.name()}"></option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Crew Member</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

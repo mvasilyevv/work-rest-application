@@ -72,10 +72,15 @@ class DataInitialization(
         )
 
         usersData.forEachIndexed { index, (firstName, lastName, email) ->
-            val activeStatus = if (index == 1)
-                statuses.getStatus(ACTIVE)
-            else
-                statuses.getStatus(ON_BOARD)
+            val activeStatus = if (index == 1) {
+                val status = Status(statusType = ACTIVE)
+                statusRepository.save(status)
+                status
+            } else {
+                val status = Status(statusType = ON_BOARD)
+                statusRepository.save(status)
+                status
+            }
 
             val user = Person(
                 firstName = firstName,
@@ -94,11 +99,6 @@ class DataInitialization(
     }
 
     private fun Map<StatusType, Status>.getStatus(statusType: StatusType): Status {
-        return this[statusType] ?:
-        throw IllegalArgumentException("Status $statusType not found")
-    }
-    companion object {
-        private const val ON_BOARD_STATUS_ID = 2L
-        private const val ACTIVE_STATUS_ID = 2L
+        return this[statusType] ?: throw IllegalArgumentException("Status $statusType not found")
     }
 }

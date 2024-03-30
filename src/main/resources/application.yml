@@ -15,3 +15,6 @@ spring:
         hbm2ddl:
           auto: "create"
         show_sql: false
+  docker:
+    compose:
+      file: local-start/docker-compose.yml

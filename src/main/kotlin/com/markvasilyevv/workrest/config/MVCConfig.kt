@@ -25,5 +25,9 @@ class MVCConfig : WebMvcConfigurer {
         // Image
         registry.addResourceHandler(IMAGE_RESOURCE)
             .addResourceLocations(IMAGE_RESOURCE_CLASSPATH)
+
+        // WebJars
+        registry.addResourceHandler(WEBJAR_RESOURCE)
+            .addResourceLocations(WEBJAR_RESOURCE_CLASSPATH)
     }
 }

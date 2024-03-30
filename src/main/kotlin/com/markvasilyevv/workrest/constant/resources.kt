@@ -13,3 +13,7 @@ const val JS_BOOTSTRAP_RESOURCE_CLASSPATH = "classpath:/bootstrap/static/images/
 // JS
 const val IMAGE_RESOURCE = "/js/**"
 const val IMAGE_RESOURCE_CLASSPATH = "classpath:/static/js/"
+
+// WebJars
+const val WEBJAR_RESOURCE = "/webjars/**"
+const val WEBJAR_RESOURCE_CLASSPATH = "classpath:/META-INF/resources/webjars/"

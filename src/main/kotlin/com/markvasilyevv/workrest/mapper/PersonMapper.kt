@@ -1,9 +1,7 @@
 package com.markvasilyevv.workrest.mapper
 
 import com.markvasilyevv.workrest.dto.PersonDTO
-import com.markvasilyevv.workrest.model.Person
-import com.markvasilyevv.workrest.model.Status
-import com.markvasilyevv.workrest.model.StatusType
+import com.markvasilyevv.workrest.model.*
 import org.mapstruct.InjectionStrategy
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
@@ -11,8 +9,7 @@ import org.mapstruct.Mappings
 import org.mapstruct.Named
 
 @Mapper(
-    componentModel = "spring",
-    injectionStrategy = InjectionStrategy.CONSTRUCTOR
+    componentModel = "spring"
 )
 interface PersonMapper {
 

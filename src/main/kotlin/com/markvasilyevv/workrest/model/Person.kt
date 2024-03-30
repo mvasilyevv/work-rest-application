@@ -41,7 +41,7 @@ data class Person(
     @Column(nullable = false)
     var mmsi: String = "",
 
-    @OneToMany(mappedBy = "person", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
     var workDays: Set<WorkDay> = emptySet(),
 
     @Embedded
