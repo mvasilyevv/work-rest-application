@@ -30,19 +30,27 @@ class AdminController(
         val personDetails = authentication.principal as PersonDetails
         logger.info { "Authenticated user: ${personDetails.username}" }
         model.addAttribute("currentPerson", personMapper.toDto(personDetails.getPerson()))
+        val (pageCount, persons) = personService.getPaginatedPersons(StatusType.ON_BOARD)
+        model.addAttribute("persons", persons.map(personMapper::toDto))
+        model.addAttribute("pages", pageCount)
+        logger.info("Page: $pageCount")
+        model.addAttribute("emptyPerson", PersonDTO())
+        model.addAttribute("roles", roleService.findAll().map { it.roleType.name })
+        model.addAttribute("statuses", StatusType.entries.map { it.name })
         return "bootstrap/admin/index"
     }
 
-    @PatchMapping("/person/{id}/edit")
+    @PatchMapping("/person/{employerNumber}/edit")
     fun updateUser(
-        @PathVariable("id") id: Long,
+        @PathVariable("employerNumber") employerNumber: Long,
         @ModelAttribute("person") personDTO: PersonDTO,
         @RequestParam("newPassword") newPassword: String
     ): String {
-        val person = personService.findById(id)
+        val person = personService.findByEmployerNumber(employerNumber)
         person?.let {
-//            val updatedPerson = personMapper.toPerson(personDTO)
-//            personService.update(updatedPerson, id)
+            val updatedPerson = personMapper.toEntity(personDTO)
+            updatedPerson.password = newPassword
+            personService.update(updatedPerson, it.id)
         }
         return "redirect:/admin"
     }
@@ -53,10 +61,10 @@ class AdminController(
         @RequestParam("password") password: String
     ): String {
 
-//        val newPerson = personMapper.mapDtoToEntity(newPersonDTO).apply {
-//            this.password = password
-//        }
-//        personService.save(newPerson)
+        val newPerson = personMapper.toEntity(newPersonDTO).apply {
+            this.password = password
+        }
+        personService.save(newPerson)
         return "redirect:/admin"
     }
 

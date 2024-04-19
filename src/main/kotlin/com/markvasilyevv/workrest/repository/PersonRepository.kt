@@ -18,4 +18,6 @@ interface PersonRepository: JpaRepository<Person, Long> {
         @Param("statusType") statusType: StatusType,
         @Param("excludedRoles") excludedRoles: Set<RoleType>
     ): List<Person>
+
+    fun findByEmployerNumber(employerNumber: Long): Person?
 }

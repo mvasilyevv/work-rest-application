@@ -11,4 +11,6 @@ interface PersonService {
     fun save(person: Person)
     fun update(updatedPerson: Person, id: Long)
     fun delete(person: Person)
+    fun findByEmployerNumber(employerNumber: Long): Person?
+    fun getPaginatedPersons(statusType: StatusType): Pair<Int, List<Person>>
 }

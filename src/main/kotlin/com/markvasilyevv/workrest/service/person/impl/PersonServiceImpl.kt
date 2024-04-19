@@ -1,6 +1,7 @@
 package com.markvasilyevv.workrest.service.person.impl
 
 import com.markvasilyevv.workrest.constant.ADMINS_ROLES
+import com.markvasilyevv.workrest.constant.PERSON_COUNT_PER_PAGE
 import com.markvasilyevv.workrest.model.Person
 import com.markvasilyevv.workrest.model.RoleType
 import com.markvasilyevv.workrest.model.StatusType
@@ -23,7 +24,7 @@ class PersonServiceImpl(
     }
 
     override fun findByEmail(email: String): Person? {
-       return personRepository.findByEmail(email)
+        return personRepository.findByEmail(email)
     }
 
     override fun findAllPersonsByStatusType(statusType: StatusType): List<Person> {
@@ -56,5 +57,18 @@ class PersonServiceImpl(
 
     override fun delete(person: Person) {
         personRepository.delete(person)
+    }
+
+    override fun findByEmployerNumber(employerNumber: Long): Person? {
+        return personRepository.findByEmployerNumber(employerNumber)
+    }
+
+    override fun getPaginatedPersons(statusType: StatusType): Pair<Int, List<Person>> {
+        val adminsRoles: Set<RoleType> = ADMINS_ROLES
+        val persons = personRepository.findAllPersonsByStatusTypeWithRoleUser(statusType, adminsRoles)
+        return when(val pageCount = persons.count() / PERSON_COUNT_PER_PAGE) {
+            0 -> 1 to persons
+            else -> pageCount to persons
+        }
     }
 }

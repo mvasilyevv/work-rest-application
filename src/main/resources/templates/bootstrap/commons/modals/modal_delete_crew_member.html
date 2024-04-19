@@ -1,9 +1,9 @@
 <div th:fragment="deleteCrewMemberModal (person)">
-    <div class="modal fade" th:id="'deleteCrewMemberModal' + ${person.id}" tabindex="-1" th:aria-labelledby="'deleteCrewMemberModalLabel' + ${person.id}" aria-hidden="true">
+    <div class="modal fade" th:id="'deleteCrewMemberModal' + ${person.employerNumber}" tabindex="-1" th:aria-labelledby="'deleteCrewMemberModalLabel' + ${person.employerNumber}" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" th:id="'deleteCrewMemberModalLabel' + ${person.id}">Delete Crew Member</h5>
+                    <h5 class="modal-title" th:id="'deleteCrewMemberModalLabel' + ${person.employerNumber}">Delete Crew Member</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -13,7 +13,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <form th:action="@{/admin/person/{id}/delete(id=${person.id})}" method="post">
+                    <form th:action="@{/admin/person/{id}/delete(id=${person.employerNumber})}" method="post">
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </div>

@@ -1,6 +1,5 @@
 package com.markvasilyevv.workrest.dto
 
-import com.markvasilyevv.workrest.model.StatusType
 import com.markvasilyevv.workrest.model.WorkDay
 import org.springframework.format.annotation.DateTimeFormat
 import java.time.LocalDate
@@ -11,8 +10,8 @@ data class PersonDTO(
     var firstName: String = "",
     var lastName: String = "",
     var email: String = "",
-    var roles: Set<String> = emptySet(),
-    var status: String = StatusType.ACTIVE.name,
+    var roles: Set<RoleDTO> = emptySet(),
+    var status: StatusDTO = StatusDTO(),
     var mmsi: String = "",
     var workDays: Set<WorkDay> = emptySet(),
     var plainPassword: String? = null,

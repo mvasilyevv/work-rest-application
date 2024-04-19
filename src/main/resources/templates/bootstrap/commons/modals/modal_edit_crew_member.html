@@ -1,43 +1,40 @@
-<div th:fragment="editCrewMemberModal (person)">
-  <div class="modal fade" th:id="'editCrewMemberModal' + ${person.id}" tabindex="-1" th:aria-labelledby="'editCrewMemberModalLabel' + ${person.id}" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" th:id="'editCrewMemberModalLabel' + ${person.id}">Edit Crew Member</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div th:fragment="editCrewMemberModal (person, roles, statuses)">
+    <div class="modal fade" th:id="'editCrewMemberModal' + ${person.employerNumber}" tabindex="-1" th:aria-labelledby="'editCrewMemberModalLabel' + ${person.employerNumber}" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" th:id="'editCrewMemberModalLabel' + ${person.employerNumber}">Edit Crew Member</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/admin/person/{employerNumber}/edit(employerNumber=${person.employerNumber})}" method="post">
+                        <div class="mb-3">
+                            <label for="editFirstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="editFirstName" name="firstName" th:value="${person.firstName}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editLastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="editLastName" name="lastName" th:value="${person.lastName}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="editEmail" name="email" th:value="${person.email}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editRole" class="form-label">Role</label>
+                            <select class="form-select" id="editRole" name="roles" multiple required>
+                                <option th:each="role : ${roles}" th:value="${role}" th:text="${role}" th:selected="${#lists.contains(person.roles.![roleType], role)}"></option>                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editStatus" class="form-label">Status</label>
+                            <select class="form-select" id="editStatus" name="status" required>
+                                <option th:each="status : ${statuses}" th:value="${status}" th:text="${status}" th:selected="${person.status == status}"></option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-          <form th:action="@{/admin/person/{id}/edit(id=${person.id})}" th:object="${person}" method="post">
-            <div class="mb-3">
-              <label for="editFirstName" class="form-label">First Name</label>
-              <input type="text" class="form-control" id="editFirstName" th:field="*{firstName}" required>
-            </div>
-            <div class="mb-3">
-              <label for="editLastName" class="form-label">Last Name</label>
-              <input type="text" class="form-control" id="editLastName" th:field="*{lastName}" required>
-            </div>
-            <div class="mb-3">
-              <label for="editEmail" class="form-label">Email</label>
-              <input type="email" class="form-control" id="editEmail" th:field="*{email}" required>
-            </div>
-            <div class="mb-3">
-              <label for="editRole" class="form-label">Role</label>
-              <select class="form-select" id="editRole" th:field="*{roles}" multiple required>
-                <option th:each="role : ${T(com.markvasilyevv.workrest.model.RoleType).values()}"
-                        th:value="${role}" th:text="${role.name()}"></option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="editStatus" class="form-label">Status</label>
-              <select class="form-select" id="editStatus" th:field="*{status.statusType}" required>
-                <option th:each="status : ${T(com.markvasilyevv.workrest.model.StatusType).values()}"
-                        th:value="${status}" th:text="${status.name()}"></option>
-              </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Save Changes</button>
-          </form>
-        </div>
-      </div>
     </div>
-  </div>
 </div>

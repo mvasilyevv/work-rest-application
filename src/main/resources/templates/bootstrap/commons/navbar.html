@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="navbar">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="navbar (currentPerson)">
     <div class="container">
         <a class="navbar-brand" href="#">Crew Mental Health Monitor</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -13,8 +13,8 @@
                         Crew Info
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="crewInfoDropdown">
-                        <li><a class="dropdown-item" href="#">Main Crew Info</a></li>
-                        <li><a class="dropdown-item" href="#">Work Hours Info</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="loadContent('crewMembers')">Crew Members</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="loadContent('workHours')">Work Hours</a></li>
                     </ul>
                 </li>
             </ul>

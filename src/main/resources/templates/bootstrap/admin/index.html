@@ -9,33 +9,31 @@
 </head>
 
 <body>
-<body>
 <header>
     <div th:replace="bootstrap/commons/navbar.html :: navbar (${currentPerson})"></div>
 </header>
 
 <section>
-    <div class="container-fluid">
-        <div class="row flex-nowrap" style="height: 100vh;">
-            <div th:replace="bootstrap/commons/fragments/fragment_sidebar :: sidebar"></div>
-            <div class="col bg-light px-1">
-                <div th:replace="bootstrap/commons/fragments/fragment_admin-panel :: adminPanel (${persons}, ${emptyPerson}, ${currentPerson}, ${roles})"></div>
-            </div>
-        </div>
+    <div class="container mt-4">
+        <div id="contentContainer"></div>
     </div>
 </section>
 
-<div th:replace="bootstrap/commons/fragments/fragment_crew_members.html :: crewMembers (${persons})"></div>
+<div th:replace="bootstrap/commons/fragments/fragment_crew_members.html :: crewMembers (${persons}, ${pages})"></div>
+<!--<div th:replace="bootstrap/commons/fragments/fragment_work_hours.html :: workHours"></div>-->
 
 <div th:each="person : ${persons}">
-    <div th:replace="bootstrap/commons/modals/modal_edit_crew_member.html :: editCrewMemberModal (${person})"></div>
-    <div th:replace="bootstrap/commons/modals/modal_delete_crew_member.html :: deleteCrewMemberModal (${person})"></div>
+    <div th:replace="bootstrap/commons/modals/modal_edit_crew_member.html :: editCrewMemberModal (${person}, ${roles}, ${statuses})"></div>
+        <div th:replace="bootstrap/commons/modals/modal_delete_crew_member.html :: deleteCrewMemberModal (${person})"></div>
 </div>
 
-<div th:replace="bootstrap/commons/modals/modal_add_crew_member.html :: addCrewMemberModal (${emptyPerson})"></div>
+<!--<div th:replace="bootstrap/commons/modals/modal_add_crew_member.html :: addCrewMemberModal (${emptyPerson}, ${roles}, ${statuses})"></div>-->
 
 <script th:src="@{/webjars/popper.js/2.11.7/umd/popper.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/5.3.0/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/pagination.js}"></script>
+<script th:src="@{/js/search.js}"></script>
+<script th:src="@{/js/script.js.js}"></script>
 </body>
 
 </html>
