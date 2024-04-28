@@ -13,7 +13,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <form th:action="@{/admin/person/{id}/delete(id=${person.employerNumber})}" method="post">
+                    <form th:action="@{/admin/person/{employerNumber}/delete(employerNumber=${person.employerNumber})}" th:method="DELETE">
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </div>

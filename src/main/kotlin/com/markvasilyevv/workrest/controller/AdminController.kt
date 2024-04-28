@@ -44,12 +44,14 @@ class AdminController(
     fun updateUser(
         @PathVariable("employerNumber") employerNumber: Long,
         @ModelAttribute("person") personDTO: PersonDTO,
-        @RequestParam("newPassword") newPassword: String
+        @RequestParam(value = "newPassword", required = false) newPassword: String?
     ): String {
         val person = personService.findByEmployerNumber(employerNumber)
         person?.let {
             val updatedPerson = personMapper.toEntity(personDTO)
-            updatedPerson.password = newPassword
+            newPassword?.let { newPassword ->
+                updatedPerson.password = newPassword
+            }
             personService.update(updatedPerson, it.id)
         }
         return "redirect:/admin"
@@ -68,9 +70,9 @@ class AdminController(
         return "redirect:/admin"
     }
 
-    @DeleteMapping("/person/{id}/delete")
-    fun delete(@PathVariable("id") id: Long): String {
-        personService.findById(id)?.let { personService.delete(it) }
+    @DeleteMapping("/person/{employerNumber}/delete")
+    fun delete(@PathVariable("employerNumber") employerNumber: Long): String {
+        personService.findByEmployerNumber(employerNumber)?.let { personService.delete(it) }
         return "redirect:/admin"
     }
 }

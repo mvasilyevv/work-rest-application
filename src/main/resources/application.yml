@@ -5,7 +5,6 @@ spring:
     username: "root"
     password: "12345678"
   mvc:
-
     hidden-method:
       filter:
         enabled: true
@@ -18,3 +17,7 @@ spring:
   docker:
     compose:
       file: local-start/docker-compose.yml
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.thymeleaf: DEBUG
